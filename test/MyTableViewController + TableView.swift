@@ -31,9 +31,15 @@ extension MyTableViewController{
         tagLabel.text = records[indexPath.section].description
         tagLabel.sizeToFit()
         
-        _ = CGFloat(0.0)
+        var image = CGFloat(0.0)
         
-        return tagLabel.bounds.height + 6
+        if records[indexPath.section].image != nil {
+            image = (records[indexPath.section].image?.size.height)! > CGFloat(60.0) ? 60 : (records[indexPath.section].image?.size.height)!
+        }
+        
+        return image > CGFloat(tagLabel.bounds.height + 6) ? image : tagLabel.bounds.height + 6
+        
+        
         
     }
     

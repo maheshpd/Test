@@ -14,7 +14,8 @@ class MyTableViewController: UITableViewController {
     var records: [Record] = []
     
     var refresh = UIRefreshControl()
-    
+    var isScrolling = false
+    var pendingUpdate = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -102,5 +103,18 @@ class MyTableViewController: UITableViewController {
             self.updateData()
         }
         task.resume()
+    }
+    
+    
+    override func sctollViewWillBeginDragging(scrollView){
+        isScrolling = true
+    }
+    
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        isScrolling = false
+        if pendingUpdate{
+            updateData()
+            pendingUpdate = false
+        }
     }
 }
