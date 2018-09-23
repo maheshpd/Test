@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MyTableViewController.swift
 //  test
 //
 //  Created by Mahesh Prasad on 22/09/18.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MyTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
     }
 
+    
 
 }
-
