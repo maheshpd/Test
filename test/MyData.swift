@@ -12,6 +12,6 @@ import UIKit
 struct Record {
     var title: String = ""
     var description: String = ""
-    var imageHrf: String = ""
+    var imageHref: String = ""
     var image: UIImage?
 }
