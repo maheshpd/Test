@@ -16,7 +16,7 @@ class MyTableViewController: UITableViewController {
         super.viewDidLoad()
         
         
-
+        
         loadJson()
     }
     
@@ -27,7 +27,7 @@ class MyTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-
+    
     func loadJson() {
         var task: URLSessionDataTask
         guard let url = URL(string: kDataUrl) else {
@@ -47,8 +47,8 @@ class MyTableViewController: UITableViewController {
                     
                     do{
                         let json = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [String: Any]
-
-                       self.navTitle = json["title"] as? String ?? ""
+                        
+                        self.navTitle = json["title"] as? String ?? ""
                         let recordsArray = json["rows"] as? [Dictionary<String,Any>] ?? []
                         self.records.removeAll()
                         
@@ -71,9 +71,9 @@ class MyTableViewController: UITableViewController {
             
             
         }
-     task.resume()
-        
+        task.resume()
+    }
+    func loadImage(imageUrl: String, index: Int){
         
     }
-    
 }
