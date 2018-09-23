@@ -12,15 +12,27 @@ fileprivate let kDataUrl = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/
 class MyTableViewController: UITableViewController {
     var navTitle: String?
     var records: [Record] = []
+    
+    var refresh = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 10.0, *){
+            tableView.refreshControl = refresh
+        }else {
+            tableView.addSubview(refresh)
+        }
         
+        refresh.addTarget(self,action: #selector(refreshData), for: .valueChanged)
         
         loadJson()
     }
     
-    
+    @objc func refreshData(sender: UIRefreshControl){
+        loadJson()
+        sender.endRefreshing()
+    }
     func updateData() {
         DispatchQueue.main.async {
             self.navigationItem.title = self.navTitle
@@ -74,6 +86,21 @@ class MyTableViewController: UITableViewController {
         task.resume()
     }
     func loadImage(imageUrl: String, index: Int){
+        var task: URLSessionDataTask
+        guard let url = URL(string: imageUrl) else {
+            print("Bad URL")
+            return
+        }
         
+        let session = URLSession(configuration: .default)
+        
+        task = session.dataTask(with: url) {
+            Data,response,Error in
+            guard let data = Data, Error == nil else
+            {return}
+            self.records[index].image = UIImage(data: data)
+            self.updateData()
+        }
+        task.resume()
     }
 }
